@@ -10,9 +10,9 @@
 		<p onclick="hideFunc(); showD2();">Sell Shares</p>
 		<p onclick="hideFunc(); showD3();">Last Transaction</p>
 		<p onclick="hideFunc(); showD4();">
-			MyShares &<br>StockValue
+			MyShares &<br>Stock Value
 		</p>
-		<a href='/'>Back to Home page</a>
+		<a href='/userPage'>Home page</a>
 	</div>
 
 	<div class="userCenter">
@@ -29,13 +29,13 @@
 				Last Refreshed: <p style="display:inline-block;" id="refreshTime">Loading...Data may take awhile to load</p>
 				
 				<!-- Company graph -->
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+				<script src="../Scripts/jquery.min.js"></script>
 				<script src="../../code/highstock.js"></script>
 				<script src="../../code/modules/exporting.js"></script>
 				<script src="../Scripts/chart.js"></script>
 				<div id="container" style="height: 400px; min-width: 310px"></div>
 			#else
-				<p>Seems like you haven't buy any shares. You could buy shares at "Buy shares" by selecting a company!.			
+				<p>Seems like you haven't bought any shares. You could buy shares at "Buy shares" by selecting a company!			
 			#end			
 			</div>
 			
@@ -92,8 +92,8 @@
 					<br><br>
 					<p>
 					Sell details:
-					<input id="ASXCode-sell" name="ASXCode-sell"  placeholder="ASX Code" readonly></input>
-					<input style="display: inline-block;width:100px;" id="amtShares-sell" name="amtShares-sell" type="number" min="0" placeholder="Amount" required></input><br/>
+					<input id="ASXCode-sell" name="ASXCode"  placeholder="ASX Code" readonly></input>
+					<input style="display: inline-block;width:100px;" id="amtShares-sell" name="amtShares" type="number" min="0" placeholder="Amount" required></input><br/>
 					</p>
 					
 					<!-- This should become functional sell button -->
@@ -106,31 +106,107 @@
 			<!-- Show Last Transaction -->
 			<div id="div3">
 				<form action=javascript:void(0);">
-					<h2 class="func">Show Last Transaction</h2>
-					<input id="lastTrans" type="submit" value="List">
+					<h2 class="func">Latest transaction</h2>
+					#if($lastTrans)
+					<div class="datagrid">
+						<!-- show latest transaction -->
+						<table class="display">
+							<thead>
+								<tr>
+									<th>Type</th>
+									<th>ASX Code</th>
+									<th>Company Name</th>
+									<th>Share Value</th>
+									<th>Count</th>
+									<th>Total Price</th>
+									<th>Date/Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>$transType</td>
+									<td>$ASXcode</td>
+									<td>$compName</td>
+									<td>$shareVal</td>
+									<td>$numShares</td>
+									<td>$totalPrice</td>
+									<td>$transDate</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					#else
+					<p class="successBox">Nothing to show now</p>
+					#end
+					
+					<h2>Transaction history</h2>
+					#if($transList)
+					<!-- show history transaction -->
+					<div class="datagrid">
+					<table class="display paging">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>ASX Code</th>
+								<th>Company Name</th>
+								<th>Share Value</th>
+								<th>Count</th>
+								<th>Date/Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($data in $transList)
+							<tr>
+								<td>$data[1]</td>	<!-- type -->
+								<td>$data[2]</td>	<!-- ASXcode -->
+								<td>$data[4]</td>	<!-- Comp name -->
+								<td>$data[5]</td>	<!-- shareVal -->
+								<td>$data[3]</td>	<!-- Amount -->
+								<td>$data[6]</td>	<!-- date time -->
+							</tr>
+							#end
+						</tbody>
+					</table>
+					</div>
+					#end
+					
 				</form>
 			</div>
 
 			<!-- Show current stock value -->
 			<div id="div4">
-				<form action=javascript:void(0);">
-					<table>
-						<tr>
-							<th>Username:</th>
-							<td>$username</td>
-						</tr>
-						<tr>
-							<th>Current balance:</th>
-							<td>$ $currBal</td>
-						</tr>
-						<tr>
-							<th class="userDet">Total stock value:</th>
-							<td>$ $stockVal</td>
-						</tr>
+				<h2 class="func">My shares and total stock value</h2>
+				<table>
+					<tr>
+						<th style="text-align:left;">Current balance:</th>
+						<td>$ $currBal</td>
+					</tr>
+					<tr>
+						<th style="text-align:left;">Total stock value:</th>
+						<td>$ $stockVal</td>
+					</tr>
+				</table>
+				#if($shareList)
+				<link rel='stylesheet' href='style/datagrid.css'>
+				<div class="datagrid">
+					<table class="display">
+						<thead>
+							<tr>
+								<th>ASX Code</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($shares in $shareList)
+								<tr>
+									<td><a href="/CompanyPage?code=$shares[0]">$shares[0]</a></td>
+									<td>$shares[1]</td>
+								</tr>
+							#end
+						</tbody>
 					</table>
-					<h2 class="func">MyShares and Stock-Value</h2>
-					<input id="currStockVal" type="submit" value="List">
-				</form>
+				#end
+					</div>
 			</div>
 		</div>
 	</div>

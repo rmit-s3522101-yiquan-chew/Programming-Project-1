@@ -1,6 +1,12 @@
+img#logo{
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}
 body {
 	padding-top: 50px;
 	min-height: 600px;
+	height: auto;
 	margin: 0;
 }
 
@@ -11,9 +17,26 @@ body {
 	font-family: "Verdana";
 }
 
+button.logoutBtn{
+	background-color: #039be5;
+	border: none;
+	float: right;
+	font-size: 15;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+button.logoutBtn:hover{
+	background-color: #81d4fa;
+}
+
 /*The Navigation bar before login*/
 ul.navbar{
-	z-index: 1;
+	z-index: 10;
 	list-style-type: none;
 	background-color: #039be5;
 	position: fixed;
@@ -40,9 +63,17 @@ li.title{
 	float: left;
 	font-weight: bold;
 }
-
+a.title:hover, a.title:visited, a.title:link, a.title:active{
+	text-decoration: none;
+	color: white;
+}
 li.navbar a:hover{
 	background-color: #81d4fa;
+}
+li#navButton{
+	display: inline-block;
+	float: right;
+	padding: 6px;
 }
 
 h3.userTitle {
@@ -81,8 +112,8 @@ h3.userTitle {
 /*center graph */
 .center {
 	padding: 5px 5% 5% 5%;
-	margin: 0 5% 0 5%;
-	width: 80%;
+	margin: 0 auto;
+	width: 70%;
 	min-height: 800px;
 	background-color: #f2f2f2;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
@@ -136,6 +167,11 @@ div.formFormat {
   text-decoration: none;
 }
 
+.btnBlue a{
+	color: #ffffff;
+	text-decoration: none;
+}
+
 .btnRed {
   display: inline-border;
   margin: 10px;
@@ -181,6 +217,25 @@ div.formFormat {
 	margin: 0 auto;
 }
 
+.homeTable{
+	margin: 0, auto;
+}
+
+.homeTable td{
+	text-align: center;
+	width: 15%;
+	padding: 10px 0;
+}
+
+.homeTable .leaderCell{
+	width: 20%;
+}
+
+.homeTable td h2{
+	font-size: 20px;
+	color:#039be5;
+	font-weight: bold;
+}
 
 footer {
 	display: block;
@@ -195,7 +250,21 @@ footer {
 	margin: 0;
 	height: 200px;
 	font-size: 80%;
-	z-index: 1;
+	z-index: 10;
+}
+
+footer h3{
+	color: #039be5;
+	font-weight: bold;
+}s
+
+footer th, footer td{
+	width: 150px;
+	padding: 3px 0;
+}
+
+footer table{
+	text-align: left;
 }
 
 footer a{

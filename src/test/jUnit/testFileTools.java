@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import model.FileTools;
 import model.Shares;
+import model.TradingAcc;
 import model.User;
 
 import org.json.JSONObject;
@@ -145,14 +146,15 @@ public class testFileTools {
 	@Test
 	public void testUpdateAllStockVal()
 	{
+		String username = "testing";
 		try {
 			fileTool.updateAllPlayerStockVal();
+			TradingAcc trAcc = FileTools.loadTrAcc(username);
+			assertEquals(trAcc.showCurrStockVal(), TradingAcc.showCurrStockVal(username));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		assertTrue(true);
 	}
 	
 	@AfterClass

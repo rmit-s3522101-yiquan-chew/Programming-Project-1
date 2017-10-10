@@ -36,21 +36,31 @@ public class Application {
 		port(getHerokuAssignedPort());
 		menu = new Menu();
 		
+		// login page paths
 		get("/",						controller.LoginController.mainPage);
 		get("/login",					controller.LoginController.loginPage);
 		get("/redirectUser",			controller.LoginController.redirectUser);
+		post("/logout",                 controller.LoginController.logout);
+		
+		// register page paths
 		get("/register",				controller.RegisterController.registerPage);
 		get("/regSuccess",				controller.RegisterController.regSuccess);
-		get("/userPage",					controller.UserController.userPage);
-		get("/adminPage",					controller.UserController.adminPage);
+		
+		// user page paths
+		get("/userPage",				controller.UserController.userPage);
 		get("/confirmEditProfile",		controller.UserController.confirmEditProfile);
 		get("/openTradingAccount",		controller.UserController.openTradingAcc);
-		get("/deleteTradingAccount",	controller.UserController.deleteTradingAcc);
-		get("/admin",					controller.AdminController.adminPage);
-		get("/searchPlayer",			controller.AdminController.searchPlayer);
-		get("/deletePlayer",			controller.AdminController.deletePlayer);
+		get("/deleteAccount",	        controller.UserController.deleteAccount);
 		get("/TransactionAccount",		controller.TransactionController.transactionAccount);
 		get("/ConfirmTransaction",		controller.TransactionController.ConfirmTransaction);
+		
+		// admin page paths
+		get("/adminPage",				controller.AdminController.adminPage);
+		post("/searchPlayer",			controller.AdminController.searchPlayer);
+		get("/listPlayers",				controller.AdminController.listPlayers);
+		get("/deletePlayer",			controller.AdminController.deletePlayer);
+		get("/userTransactions",		controller.AdminController.userTransactions);
+		get("/allTransactions",			controller.AdminController.allTransactions);
 		get("/CompanyPage", 			controller.CompanyPageController.companyPage);
 		get("/Leaderboard", 			controller.LeaderboardController.leaderboard);
 		

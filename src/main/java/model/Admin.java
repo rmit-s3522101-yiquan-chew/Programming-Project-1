@@ -16,7 +16,7 @@ public class Admin extends User{
 	}
 
 	//Search file for a matching substring and returns arrayList
-	public static ArrayList<String[]> searchPlayer(String user_ID, String filePath){
+	public ArrayList<String[]> searchPlayer(String user_ID, String filePath){
 		FileTools ft = new FileTools();
 		ArrayList<String[]> matchingPlayer;
 		//calls and returns array of matching players
@@ -44,12 +44,11 @@ public class Admin extends User{
 				}
 				readLine = br.readLine();
 			}
-
 			br.close();
 		} catch (IOException e) {
 			
 			e.printStackTrace();
-		}		
+		}
 		return allPlayers;
 	}
 	
@@ -81,7 +80,7 @@ public class Admin extends User{
 	}
 	
 	//All transaction from one user
-	public List<String[]> viewUserTrans(String user_ID, String filePath) throws IOException{
+	public static List<String[]> viewUserTrans(String user_ID, String filePath) throws IOException{
 		FileTools ft = new FileTools();
 		
 		List<String[]> userTrans = ft.readCSV(FileTools.USER_TRANSACTION_LOG);
@@ -118,7 +117,7 @@ public class Admin extends User{
 		return matchingList;
 	}
 	
-	public List<String[]> viewAllTrans(String filePath) throws IOException{
+	public static List<String[]> viewAllTrans(String filePath) throws IOException{
 		FileTools ft = new FileTools();
 		//Load all their transactions into the list and return
 		List<String[]> userTrans = ft.readCSV(FileTools.USER_TRANSACTION_LOG);

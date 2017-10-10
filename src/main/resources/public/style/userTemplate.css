@@ -1,8 +1,8 @@
 .sideNav{
-	height: 800px;
+	min-height: 115%;
 	width: 225px;
 	position: absolute;
-	z-index: 0;
+	z-index: 9;
 	padding-top: 125px;
 	top: 0;
 	left: 0;
@@ -13,7 +13,7 @@
 }
 
 .wrapper{
-	height: 100%;
+	height: inherit;
 	width: 100%;
 }
 

@@ -505,4 +505,34 @@ public class FileTools {
 		}
 		
 	}
+
+	/* 
+	 * For getting Player log based on
+	 */
+	public static ArrayList<String[]> getTransactionLog(String id) throws IOException{
+		//read from csv
+		ArrayList<String[]> transactionLog = new ArrayList<String []>();
+		List<String[]> temp = readCSV(USER_TRANSACTION_LOG);
+		
+		//from admin, ask for all
+		if(id.equals("ALL")){
+			for(String[] data : temp){
+				transactionLog.add(data);
+			}
+		}
+		else{
+			for(String[] data : temp){
+				if(data[0].equals(id)){
+					transactionLog.add(data);
+				}
+			}			
+		}
+		
+		//error handling of for null 0 elements matching
+		if(transactionLog.size() == 0){
+			return null;
+		}
+		
+		return transactionLog;
+	}
 }

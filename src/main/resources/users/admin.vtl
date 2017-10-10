@@ -1,5 +1,16 @@
-
 <link rel="stylesheet" href="../style/userTemplate.css">
+<!-- paging -->
+<link rel="stylesheet" href="style/table/jquery.dataTables.min.css">
+<script src="Scripts/jquery.min.js"></script>
+<script src="Scripts/table/jquery.dataTables.min.js"></script>
+<script>
+setTimeout(function(){
+	$(".paging").DataTable( {
+	    "scrollX": true,
+	    "pagingType": "full_numbers"
+	} );
+}, 500);
+</script>
 
 <!-- Side Navbar -->
 <div class="wrapper">
@@ -11,75 +22,110 @@
 		<p onclick="hideFunc(); showD3();">Delete Player</p>
 		<p onclick="hideFunc(); showD4();">Player Transactions</p>
 		<p onclick="hideFunc(); showD5();">All Transactions</p>
-		<a href='/'>Home page</a>
+		<p onclick="hideFunc(); showD0();">Home</p>
 	</div>
 
 	<!-- body content -->
 	<div class="userCenter">
-		<h1>Welcome Administrator</h1>
-		<h2 class="func">$firstname $lastname</h2>
-		<p>
-		<table>
-			<tr>
-				<th class="userDet">Username:</th>
-				<td>$username</td>
-			</tr>
-			<tr>
-				<th class="userDet">First name:</th>
-				<td>$firstname</td>
-			</tr>
-			<tr>
-				<th class="userDet">Last name:</th>
-				<td>$lastname</td>
-			</tr>
-			<tr>
-				<th class="userDet">Age:</th>
-				<td>$age</td>
-			</tr>
-		</table>
-		<br>
-		</p>
+		<div id=div0 style="display:block;">
+			<h1>Welcome Administrator</h1>
+			<h2 class="func">$firstname $lastname</h2>
+			<p>
+			<table>
+				<tr>
+					<th class="userDet">Username:</th>
+					<td>$username</td>
+				</tr>
+				<tr>
+					<th class="userDet">First name:</th>
+					<td>$firstname</td>
+				</tr>
+				<tr>
+					<th class="userDet">Last name:</th>
+					<td>$lastname</td>
+				</tr>
+				<tr>
+					<th class="userDet">Age:</th>
+					<td>$age</td>
+				</tr>
+			</table>
+			<br>
+			</p>
+		</div>
 
 		<!-- Functions -->
 		<!-- Search for player -->
 		<div id="div1">
-			<form action='/searchPlayer'>
+			<form method="post" action='/searchPlayer'>
 				<h2 class="func">Search for player</h2>
 				<input id="searchPlayerID" name="searchPlayerID" type="text" required> <input
 				 class="btnBlue" id="findPlayer" type="submit" value="Find Player">
 			</form>
-			#if($userNotFound)
-				<p class="errorBox">Error: user not found</p>
-			#elseif($userFound)
-				<table>
-					<tr>
-						<th class="userDet">Username:</th>
-						<td>$userUsername</td>
-					</tr>
-					<tr>
-						<th class="userDet">First name:</th>
-						<td>$userFirstName</td>
-					</tr>
-					<tr>
-						<th class="userDet">Last name:</th>
-						<td>$userLastName</td>
-					</tr>
-					<tr>
-						<th class="userDet">Age:</th>
-						<td>$userAge</td>
-					</tr>
-				</table>
-			#end
 			<br>
+			#if($userFound)
+				<link rel='stylesheet' href='style/datagrid.css'>
+				<div class="datagrid">
+					<table class="display">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>First name</th>
+								<th>Last name</th>
+								<th>Age</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>$userUsername</td>
+								<td>$userFirstName</td>
+								<td>$userLastName</td>
+								<td>$userAge</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+			#end
+			#if ($userNotFound)
+				<p class="errorBox">Error: User not found!</p>	
+			#end	
 		</div>
 
 		<!-- View player -->
 		<div id="div2">
-			<form action=javascript:void(0);">
+			<form action= '/listPlayers'>
 				<h2 class="func">List All Player</h2>
-				<input class="btnBlue" id="listPlayer" type="submit" value="List Players">
+				#if(!$listPlayers)
+					<input class="btnBlue" id="listPlayer" type="submit" value="List Players">
+				#end
 			</form>
 			<br>
+			#if($listPlayers)
+				<link rel='stylesheet' href='style/datagrid.css'>
+				<div class="datagrid">
+					<table class="display paging">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>First name</th>
+								<th>Last name</th>
+								<th>Age</th>
+								<th>Password</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach ($player in $playerList)
+								<tr>
+									<td>$player[0]</td>
+									<td>$player[2]</td>
+									<td>$player[3]</td>
+									<td>$player[4]</td>
+									<td>$player[1]</td>
+								</tr>
+							#end
+						</tbody>	
+					</table>
+				</div>
+			#end
 		</div>
 
 		<!-- Delete Player -->
@@ -99,21 +145,83 @@
 
 		<!-- list player transaction -->
 		<div id="div4">
-			<form action=javascript:void(0);">
+			<form action='/userTransactions'>
 				<h2 class="func">List player transaction</h2>
-				<input id="listPlayerID" type="text" required> <input
+				<input id="listPlayerID" name="listPlayerID" type="text" required> <input
 					class="btnBlue" id="listPlayerTrans" type="submit" value="List Transactions">
 			</form>
 			<br>
+			#if($userTransactions)
+				<link rel='stylesheet' href='style/datagrid.css'>
+				<div class="datagrid">
+					<table class="display paging">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Transaction Type</th>
+								<th>ASX Code</th>
+								<th>No. of shares</th>
+								<th>Company Name</th>
+								<th>Share value</th>
+								<th>Date/Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach ($transaction in $transactionLogs)
+								<tr>
+									<td>$transaction[0]</td>
+									<td>$transaction[1]</td>
+									<td>$transaction[2]</td>
+									<td>$transaction[3]</td>
+									<td>$transaction[4]</td>
+									<td>$transaction[5]</td>
+									<td>$transaction[6]</td>
+								</tr>
+							#end
+						</tbody>	
+					</table>
+				</div>
+			#end
 		</div>
 
 		<!-- list all transaction -->
 		<div id="div5">
-			<form action=javascript:void(0);">
+			<form action='/allTransactions'>
 				<h2 class="func">List All Transaction</h2>
 				<input class="btnBlue" id="listTransaction" type="submit" value="List Transactions">
 			</form>
 			<br>
+			#if($allTransactions)
+				<link rel='stylesheet' href='style/datagrid.css'>
+				<div class="datagrid">
+					<table class="display paging">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Transaction Type</th>
+								<th>ASX Code</th>
+								<th>No. of shares</th>
+								<th>Company Name</th>
+								<th>Share value</th>
+								<th>Date/Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach ($transaction in $allTransLogs)
+								<tr>
+									<td>$transaction[0]</td>
+									<td>$transaction[1]</td>
+									<td>$transaction[2]</td>
+									<td>$transaction[3]</td>
+									<td>$transaction[4]</td>
+									<td>$transaction[5]</td>
+									<td>$transaction[6]</td>
+								</tr>
+							#end
+						</tbody>	
+					</table>
+				</div>
+			#end
 		</div>
 	</div>
 	<!-- Functions -->
@@ -178,12 +286,16 @@
 	}
 
 	function hideFunc() {
+		var d0 = document.getElementById("div0");
 		var d1 = document.getElementById("div1");
 		var d2 = document.getElementById("div2");
 		var d3 = document.getElementById("div3");
 		var d4 = document.getElementById("div4");
 		var d5 = document.getElementById("div5");
 
+		if (d0.style.display === 'block') {
+			d0.style.display = 'none';
+		}
 		if (d1.style.display === 'block') {
 			d1.style.display = 'none';
 		}
@@ -201,6 +313,9 @@
 		}
 	}
 
+	function showD0() {
+		document.getElementById("div0").style.display = 'block';
+	}
 	function showD1() {
 		document.getElementById("div1").style.display = 'block';
 	}

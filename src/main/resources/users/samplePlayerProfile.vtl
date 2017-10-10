@@ -1,6 +1,14 @@
 <!DOCTYPE>
 <head>
-	<title>Stock Market Simulator</title>
+	<link rel="icon" href="SMS_logo.png">
+	<!-- change based on user -->
+	<title>Stock Market Simulator | 
+	#if($admin)
+		Admin Page
+	#else
+		User Page
+	#end
+	</title>
 	<link rel="stylesheet" href="../style/layout.css">
 </head>
 
@@ -8,14 +16,23 @@
 	<!-- player navbar -->
 	<ul class="navbar">
 		<!-- maybe add a picture here for the logo -->
-		<h3 class="userTitle">STOCK MARKET SIMULATOR</h3>
-		<li class="navbar">
-			<a href="/">Logout</a>
+		<h3 class="userTitle title">
+			<img src="SMS_logo.png" id="logo"></img>
+			<a href="/" class="title">STOCK MARKET SIMULATOR</a>
+		</h3>
+		<li>
+			<form method="post" action=/logout>
+				<button class="logoutBtn" id="logout">Logout</button>
+			</form>	
 		</li>
 		<li class="navbar adminSideNav" onclick="openNav()" &>Menu</li>
 		<li class="navbar">
-			<a href="/user">$username</a>
+		#if (!$admin)
+			<a href="/userPage">$username</a>
 			<a href="/TransactionAccount">My Trading Account</a>
+		#else
+			<a href="/adminPage">$username</a>
+		#end
 		</li>
 	</ul>
 
@@ -26,16 +43,14 @@
 	</div>
 
 	<footer>
+		<h3>Stock-Market Simulator</h3>
+		<table>
+			<tr><th>Developers: </th><th></th><th>Sponsors: </th><th></th></tr>
+			<tr><td>Yi Quan Chew<br><a href="mailto:s3522101@student.rmit.edu.au">s3522101</a></td><td>Jayden Joyce<br><a href="mailto:s3543824@student.rmit.edu.au">s3543824</a></td><td><a href="https:/www.rmit.edu.au">RMIT</a></td></tr>
+			<tr><td>John Nguyen<br><a href="mailto:s3542969@student.rmit.edu.au">s3542969</a></td><td>Karsten Luu<br><a href="mailto:s3542764@student.rmit.edu.au">s3542764</a></td><td>Homy Ashrafzadeh<br>amirhomayoon.ashrafzadeh@rmit.edu.au</td></tr>
+			<tr></tr>
+		</table><br>
 		<p>
-			Created by:<br>
-			Yi Quan Chew<br>
-			<a href="mailto:s3522101@student.rmit.edu.au">s3522101</a><br>
-			Jayden Joyce<br>
-			<a href="mailto:s3543824@student.rmit.edu.au">s3543824</a><br>
-			John Nguyen<br>
-			<a href="mailto:s3542969@student.rmit.edu.au">s3542969</a><br>
-			Karsten Luu<br>
-			<a href="mailto:s3542764@student.rmit.edu.au">s3542764</a><br><br>
 			COPYRIGHT ©2017 TEAM_WAN, ALL RIGHTS RESERVED
 		</p>
 	</footer>

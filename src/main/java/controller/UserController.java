@@ -24,15 +24,18 @@ public class UserController {
 		
 		LoginController.loadToModel(model, req);
 		model.put("userTemplate", "/users/user.vtl");
+		model.put("admin", req.session().attribute("adminObj"));
 		
-		return new VelocityTemplateEngine().render(new ModelAndView(model, "users/samplePlayerProfile.vtl"));
-	};
-	
-	public static Route adminPage = (req, res) -> {
-		Map<String, Object> model = new HashMap<>();
-		
-		LoginController.loadToModel(model, req);
-		model.put("userTemplate", "/users/admin.vtl");
+		//load trading account
+		Player player = (Player) FileTools.LoadUser(req.session().attribute("username"));
+		if(player.getTradingAcc() != null){
+			model.put("tradingAcc", true);
+			model.put("tradingAccSuccess", true);
+			model.put("currBal", player.getTradingAcc().getCurrBal());
+			model.put("sharesOwned", player.getTradingAcc().getSharesOwned());
+		}
+		else
+			model.put("tradingAcc", false);
 		
 		return new VelocityTemplateEngine().render(new ModelAndView(model, "users/samplePlayerProfile.vtl"));
 	};
@@ -40,6 +43,7 @@ public class UserController {
 	public static Route confirmEditProfile = (req, res) -> {
 		Map<String, Object> model = editProfile(req);
 		
+		res.redirect("/userPage");
 		return new VelocityTemplateEngine().render(new ModelAndView(model, "users/samplePlayerProfile.vtl"));
 	};
 	
@@ -47,19 +51,17 @@ public class UserController {
 		Map<String, Object> model = openTradingAcc(req.session().attribute("username"), req);
 		LoginController.loadToModel(model, req);
 		
-		model.put("userTemplate", "/users/user.vtl");
-		
+		res.redirect("/userPage");
 		return new VelocityTemplateEngine().render(new ModelAndView(model, "users/samplePlayerProfile.vtl"));
 	};
 	
-	public static Route deleteTradingAcc = (req, res) -> {
-		Map<String, Object> model = deleteAccount(req.session().attribute("username"), req);
-		LoginController.loadToModel(model, req);
+	public static Route deleteAccount = (req, res) -> {
+		Map<String, Object> model = new HashMap<>();
 		
-		model.put("userTemplate", "/users/user.vtl");
-		model.put("tradingAcc", false);
+		deleteAccount(req.session().attribute("username"), req);
+		model.put("template", "users/deleteAccount.vtl");
 		
-		return new VelocityTemplateEngine().render(new ModelAndView(model, "users/samplePlayerProfile.vtl"));
+		return new VelocityTemplateEngine().render(new ModelAndView(model, "layout.vtl"));
 	};
 	
 	public static Map<String, Object> editProfile(Request req) throws IOException{
@@ -83,10 +85,10 @@ public class UserController {
 			req.session().attribute("age", age);
 			req.session().attribute("password", password);
 			
-			model.put("userTemplate", "/users/ConfirmEditProfile.vtl");
+			model.put("success", "/users/ConfirmEditProfile.vtl");
 		}
 		else
-			model.put("userTemplate", "/users/editProfile.vtl");
+			model.put("failed", "/users/editProfile.vtl");
 		
 		return model;	
 	}
@@ -101,19 +103,9 @@ public class UserController {
 			model.put("age", req.session().attribute("age"));
 			model.put("password", req.session().attribute("password"));
 		}
-		
-		if (req.session().attribute("currBal") != null)
-		{
-			
-			model.put("tradingAcc", true);
-			model.put("currBal", req.session().attribute("currBal"));
-			model.put("sharesOwned", req.session().attribute("sharesOwned"));
-		}
-		else
-			model.put("tradingAcc", false);
 	}
 	
-	public void loadTradingAccToSession(Request req)
+	public static void loadTradingAccToSession(Request req)
 	{
 		Player player = (Player) FileTools.LoadUser(req.session().attribute("username"));
 		
@@ -124,20 +116,28 @@ public class UserController {
 		}
 	}
 	
-	public static Map<String, Object> deleteAccount(String username, Request req)
+	public static void removeTradAccfromSession(Request req)
 	{
-		Map<String, Object> model = new HashMap<>();
+		Player player = (Player) FileTools.LoadUser(req.session().attribute("username"));
+		
+		if (player.getPassword().equals(req.session().attribute("password")) && player.getTradingAcc() != null)
+		{
+			req.session().removeAttribute("currBal");
+			req.session().removeAttribute("sharesOwned");
+		}
+	}
+	
+	public static void deleteAccount(String username, Request req)
+	{
 		Player player = req.session().attribute("playerObj");
 		
 		try {
+			LoginController.logoutUser(req);
 			player.deleteAcc();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		model.put("accountDeleted", true);
-		return model;
 	}
 	
 	public static Map<String, Object> openTradingAcc(String username, Request req)
@@ -155,8 +155,7 @@ public class UserController {
 				
 				model.put("tradingAcc", true);
 				model.put("tradingAccSuccess", true);
-				model.put("currBal", player.getTradingAcc().getCurrBal());
-				model.put("sharesOwned", player.getTradingAcc().getSharesOwned());
+				loadTradingAccToSession(req);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
