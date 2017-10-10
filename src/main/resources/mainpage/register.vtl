@@ -1,0 +1,58 @@
+<!--This is the register page-->
+
+<h1>Create a new account</h1>
+<div align="center">
+	<form action='/regSuccess' onsubmit="return regValidate();" name="regForm">
+		<table>
+			<tr>
+				<td>User Name: </td>
+				<td><input id="username" name="username" type="text"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="user_name_error"></div></td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td><input id="firstname" name="firstname" type="text"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="first_name_error"></div></td>
+			</tr>
+			<tr>
+				<td>Last Name:
+				<td><input id="lastname" name="lastname" type="text"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="last_name_error"></div></td>
+			</tr>
+			<tr>
+				<td>Age:</td>
+				<td><input id="age" name="age" type="text"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="age_error"></div></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input id="password" name="password" type="password"></td>
+			</tr>
+			<tr>
+				<td>Confirm Password:</td>
+				<td><input id="confirmpassword" name="confirmpassword" type="password"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="password_error"></div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input class="btnBlue" type="submit" value="Register" name="register"><a class="btnBlue" href='/'>Back</a></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript" src="Scripts/InputValidation.js"></script>

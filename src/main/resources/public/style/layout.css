@@ -1,0 +1,204 @@
+body {
+	padding-top: 50px;
+	min-height: 600px;
+	margin: 0;
+}
+
+/*Color template: Light-Blue */
+/*https://material.io/guidelines/style/color.html#color-color-palette */
+/*setting font */
+* {
+	font-family: "Verdana";
+}
+
+/*The Navigation bar before login*/
+ul.navbar{
+	z-index: 1;
+	list-style-type: none;
+	background-color: #039be5;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Links inside the navbar */
+li.navbar a{
+	float: right;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+li.title{
+	float: left;
+	font-weight: bold;
+}
+
+li.navbar a:hover{
+	background-color: #81d4fa;
+}
+
+h3.userTitle {
+	padding-left: 10px;
+	color: #f2f2f2;
+}
+
+.adminSideNav {
+	float: left;
+	display: inline-block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: 0.3s;
+	position: absolute;
+}
+
+.adminSideNav:hover {
+	background-color: #81d4fa;
+}
+
+/* Main content */
+.main {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*center text */
+.cText {
+	text-align: center;
+	color: #039be5;
+}
+
+/*center graph */
+.center {
+	padding: 5px 5% 5% 5%;
+	margin: 0 5% 0 5%;
+	width: 80%;
+	min-height: 800px;
+	background-color: #f2f2f2;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+}
+
+div.formFormat {
+  float:left;
+}
+
+.footer {
+	border-top: 1px;
+	border-color: #eaecef;
+	margin-top: 40px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.errorBox {
+	background: #FFCDD2;
+	border: solid;
+	border-color: #E57373;
+	border-radius: 7px;
+	color: #E57373;
+	padding: 10px 0px 10px 0px;
+	text-align: center;
+}
+
+.successBox {
+	background: #C8E6C9;
+	border: solid;
+	border-color: #66BB6A;
+	border-radius: 7px;
+	color: #66BB6A;
+	padding: 10px 0px 10px 0px;
+	text-align: center;
+}
+
+/*button formatting*/
+.btnBlue {
+  display: inline-border;
+  margin: 10px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #039be5;
+  padding: 10px 15px 10px 15px;
+  border: none;
+  text-decoration: none;
+}
+
+.btnRed {
+  display: inline-border;
+  margin: 10px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #f44236;
+  padding: 10px 15px 10px 15px;
+  border: none;
+  text-decoration: none;
+}
+
+.btnBlue:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.btnRed:hover {
+  background: #ff5e52;
+  background-image: -webkit-linear-gradient(top, #ff5e52, #f44236);
+  background-image: -moz-linear-gradient(top, #ff5e52, #f44236);
+  background-image: -ms-linear-gradient(top, #ff5e52, #f44236);
+  background-image: -o-linear-gradient(top, #ff5e52, #f44236);
+  background-image: linear-gradient(to bottom, #ff5e52, #f44236);
+  text-decoration: none;
+}
+
+/*formating chartdiv*/
+#chartdiv {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.bottom{
+	margin: 0 auto;
+}
+
+
+footer {
+	display: block;
+	padding-left: 10%;
+	background-color: #333333;
+	position: relative;
+	left: 0;
+	bottom: 0;
+	color: #f2f2f2;
+	overflow: hidden;
+	width: 100%;
+	margin: 0;
+	height: 200px;
+	font-size: 80%;
+	z-index: 1;
+}
+
+footer a{
+	text-decoration: none;
+	color: #FFFFFF
+}
