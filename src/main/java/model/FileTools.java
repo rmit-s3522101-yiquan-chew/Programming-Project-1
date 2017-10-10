@@ -22,7 +22,7 @@ import com.opencsv.CSVWriter;
 public class FileTools {
 	public static final String CSV_RESOURCE_FOLDER = "src/main/resources/public/csv";
 	public static final String USER_DATA_FILE = CSV_RESOURCE_FOLDER + "/UserData.csv";
-	public static final String USER_ACC_FILE = CSV_RESOURCE_FOLDER + "/accountData.csv";
+	public static final String USER_ACC_FILE = CSV_RESOURCE_FOLDER + "/AccountData.csv";
 	public static final String USER_SHARES_OWNED_FILE = CSV_RESOURCE_FOLDER + "/sharesOwned.csv";
 	public static final String USER_TRANSACTION_LOG = CSV_RESOURCE_FOLDER + "/transactionLog.csv";
 	public static final String ASX_COMPANIES_DATA_FILE = CSV_RESOURCE_FOLDER + "/ASXListedCompanies.csv";
