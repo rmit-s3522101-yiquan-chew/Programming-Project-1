@@ -24,7 +24,7 @@ public class FileTools {
 	public static final String USER_DATA_FILE = CSV_RESOURCE_FOLDER + "/UserData.csv";
 	public static final String USER_ACC_FILE = CSV_RESOURCE_FOLDER + "/AccountData.csv";
 	public static final String USER_SHARES_OWNED_FILE = CSV_RESOURCE_FOLDER + "/sharesOwned.csv";
-	public static final String USER_TRANSACTION_LOG = CSV_RESOURCE_FOLDER + "/transactionLog.csv";
+	public static final String USER_TRANSACTION_LOG = CSV_RESOURCE_FOLDER + "/TransactionLog.csv";
 	public static final String ASX_COMPANIES_DATA_FILE = CSV_RESOURCE_FOLDER + "/ASXListedCompanies.csv";
 	public static final String LEADERBOARD = CSV_RESOURCE_FOLDER + "/leaderboard.csv";
 	public static final String ALPHA_ADVANTAGE_API_KEY = "MP9H93RQEUUFGX07";
